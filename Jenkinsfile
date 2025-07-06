@@ -28,9 +28,9 @@ pipeline {
         stage("build and push image") {
             steps {
                 script {
-                    helper.buildImage('nanajanashia/demo-app:jma-3.0')
+                    helper.buildImage('agneypatel/test-repoo:1.6')
                     helper.dockerLogin()
-                    helper.dockerPush('nanajanashia/demo-app:jma-3.0')
+                    helper.dockerPush('agneypatel/test-repoo:1.6')
                 }
             }
         }
