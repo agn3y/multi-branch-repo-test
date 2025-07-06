@@ -1,21 +1,22 @@
 def buildJar() {
-    echo 'building the application...'
-    sh 'mvn package' 	
-} 
+    sh 'mvn clean package'
+}
 
-def buildImage() {
-    echo "Building the Docker image..."
-    withCredentials([usernamePassword(credentialsId: 'Dockerhub', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-        sh "docker build -t \"$IMAGE_NAME\" ."
-        sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh "docker push \"$IMAGE_NAME\""
-    }
-} 
+def buildImage(tag) {
+    sh "docker build -t ${tag} ."
+}
+
+def dockerLogin() {
+    sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
+}
+
+def dockerPush(tag) {
+    sh "docker push ${tag}"
+}
 
 def deployApp() {
-    echo 'deploying the application...'
-    echo "deploying version ${params.VERSION}"
-} 
+    sh "echo Deploying app..."
+}
 
 return this
 
