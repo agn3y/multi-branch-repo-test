@@ -5,7 +5,7 @@ def helper
 pipeline {
     agent any
     tools {
-        maven 'Maven'
+        maven 'maven-latest'
     }
 
     stages {
