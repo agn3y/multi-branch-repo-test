@@ -3,19 +3,32 @@ def buildJar() {
 }
 
 def buildImage(tag) {
+    echo "Building Docker image: ${tag}"
     sh "docker build -t ${tag} ."
 }
 
 def dockerLogin() {
-    sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
+    withCredentials([
+        usernamePassword(
+            credentialsId: 'docker-hub-creds', // Set this ID in Jenkins
+            usernameVariable: 'DOCKER_USERNAME',
+            passwordVariable: 'DOCKER_PASSWORD'
+        )
+    ]) {
+        sh '''
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        '''
+    }
 }
 
 def dockerPush(tag) {
+    echo "Pushing Docker image: ${tag}"
     sh "docker push ${tag}"
 }
 
 def deployApp() {
-    sh "echo Deploying app..."
+    echo "Deploying app..."
+    sh "echo Simulating deployment..."
 }
 
 return this
