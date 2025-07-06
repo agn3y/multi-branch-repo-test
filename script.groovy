@@ -10,7 +10,7 @@ def buildImage(tag) {
 def dockerLogin() {
     withCredentials([
         usernamePassword(
-            credentialsId: 'docker-hub-creds', // Set this ID in Jenkins
+            credentialsId: 'Dockerhub', // Set this ID in Jenkins
             usernameVariable: 'DOCKER_USERNAME',
             passwordVariable: 'DOCKER_PASSWORD'
         )
